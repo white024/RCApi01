@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="gelen_kutusu">
+          <Key>
+            <PropertyRef Name="kullanici_adi" />
+          </Key>
+          <Property Name="kullanici_adi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mesaj" Type="int" />
+        </EntityType>
+        <EntityType Name="kullanici_list">
+          <Key>
+            <PropertyRef Name="ID_kullanici" />
+          </Key>
+          <Property Name="ID_kullanici" Type="int" Nullable="false" />
+          <Property Name="kullanici_adi_u" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sifre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IP" Type="varchar" MaxLength="50" />
+          <Property Name="durum" Type="bit" />
+          <Property Name="ID_mesajlar" Type="varchar" MaxLength="50" />
+          <Property Name="ID_unutulan_sifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="mesajlar">
+          <Key>
+            <PropertyRef Name="mesaj_no" />
+          </Key>
+          <Property Name="ID_g" Type="int" Nullable="false" />
+          <Property Name="kullanici_adi_g" Type="varchar" MaxLength="50" />
+          <Property Name="kullanici_adi_a" Type="varchar" MaxLength="50" />
+          <Property Name="ID_alici" Type="varchar" MaxLength="50" />
+          <Property Name="mesaj_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mesaj" Type="varchar(max)" />
+          <Property Name="message_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="unutulan_sifre">
+          <Key>
+            <PropertyRef Name="user_sifre" />
+          </Key>
+          <Property Name="user_sifre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="unutulan_sifre_a" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="yonetici_giris">
+          <Key>
+            <PropertyRef Name="ID_y_giris" />
+          </Key>
+          <Property Name="ID_y_giris" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullanici_adi_a" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sifre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tur" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_kullanici_list_unutulan_sifre">
+          <End Role="unutulan_sifre" Type="Self.unutulan_sifre" Multiplicity="0..1" />
+          <End Role="kullanici_list" Type="Self.kullanici_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unutulan_sifre">
+              <PropertyRef Name="user_sifre" />
+            </Principal>
+            <Dependent Role="kullanici_list">
+              <PropertyRef Name="ID_unutulan_sifre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mesajlar_kullanici_list">
+          <End Role="kullanici_list" Type="Self.kullanici_list" Multiplicity="1" />
+          <End Role="mesajlar" Type="Self.mesajlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanici_list">
+              <PropertyRef Name="ID_kullanici" />
+            </Principal>
+            <Dependent Role="mesajlar">
+              <PropertyRef Name="ID_g" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RCModelStoreContainer">
+          <EntitySet Name="gelen_kutusu" EntityType="Self.gelen_kutusu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanici_list" EntityType="Self.kullanici_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mesajlar" EntityType="Self.mesajlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="unutulan_sifre" EntityType="Self.unutulan_sifre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="yonetici_giris" EntityType="Self.yonetici_giris" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_kullanici_list_unutulan_sifre" Association="Self.FK_kullanici_list_unutulan_sifre">
+            <End Role="unutulan_sifre" EntitySet="unutulan_sifre" />
+            <End Role="kullanici_list" EntitySet="kullanici_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mesajlar_kullanici_list" Association="Self.FK_mesajlar_kullanici_list">
+            <End Role="kullanici_list" EntitySet="kullanici_list" />
+            <End Role="mesajlar" EntitySet="mesajlar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="gelen_kutusu">
+          <Key>
+            <PropertyRef Name="kullanici_adi" />
+          </Key>
+          <Property Name="kullanici_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mesaj" Type="Int32" />
+        </EntityType>
+        <EntityType Name="kullanici_list">
+          <Key>
+            <PropertyRef Name="ID_kullanici" />
+          </Key>
+          <Property Name="ID_kullanici" Type="Int32" Nullable="false" />
+          <Property Name="kullanici_adi_u" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="durum" Type="Boolean" />
+          <Property Name="ID_mesajlar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_unutulan_sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="unutulan_sifre" Relationship="Self.FK_kullanici_list_unutulan_sifre" FromRole="kullanici_list" ToRole="unutulan_sifre" />
+          <NavigationProperty Name="mesajlar" Relationship="Self.FK_mesajlar_kullanici_list" FromRole="kullanici_list" ToRole="mesajlar" />
+        </EntityType>
+        <EntityType Name="mesajlar">
+          <Key>
+            <PropertyRef Name="mesaj_no" />
+          </Key>
+          <Property Name="ID_g" Type="Int32" Nullable="false" />
+          <Property Name="kullanici_adi_g" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kullanici_adi_a" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_alici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mesaj_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="message_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kullanici_list" Relationship="Self.FK_mesajlar_kullanici_list" FromRole="mesajlar" ToRole="kullanici_list" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="unutulan_sifre">
+          <Key>
+            <PropertyRef Name="user_sifre" />
+          </Key>
+          <Property Name="user_sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unutulan_sifre_a" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kullanici_list" Relationship="Self.FK_kullanici_list_unutulan_sifre" FromRole="unutulan_sifre" ToRole="kullanici_list" />
+        </EntityType>
+        <EntityType Name="yonetici_giris">
+          <Key>
+            <PropertyRef Name="ID_y_giris" />
+          </Key>
+          <Property Name="ID_y_giris" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullanici_adi_a" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_kullanici_list_unutulan_sifre">
+          <End Role="unutulan_sifre" Type="Self.unutulan_sifre" Multiplicity="0..1" />
+          <End Role="kullanici_list" Type="Self.kullanici_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unutulan_sifre">
+              <PropertyRef Name="user_sifre" />
+            </Principal>
+            <Dependent Role="kullanici_list">
+              <PropertyRef Name="ID_unutulan_sifre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mesajlar_kullanici_list">
+          <End Role="kullanici_list" Type="Self.kullanici_list" Multiplicity="1" />
+          <End Role="mesajlar" Type="Self.mesajlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanici_list">
+              <PropertyRef Name="ID_kullanici" />
+            </Principal>
+            <Dependent Role="mesajlar">
+              <PropertyRef Name="ID_g" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="gelen_kutusu" EntityType="Self.gelen_kutusu" />
+          <EntitySet Name="kullanici_list" EntityType="Self.kullanici_list" />
+          <EntitySet Name="mesajlar" EntityType="Self.mesajlar" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="unutulan_sifre" EntityType="Self.unutulan_sifre" />
+          <EntitySet Name="yonetici_giris" EntityType="Self.yonetici_giris" />
+          <AssociationSet Name="FK_kullanici_list_unutulan_sifre" Association="Self.FK_kullanici_list_unutulan_sifre">
+            <End Role="unutulan_sifre" EntitySet="unutulan_sifre" />
+            <End Role="kullanici_list" EntitySet="kullanici_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mesajlar_kullanici_list" Association="Self.FK_mesajlar_kullanici_list">
+            <End Role="kullanici_list" EntitySet="kullanici_list" />
+            <End Role="mesajlar" EntitySet="mesajlar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RCModelStoreContainer" CdmEntityContainer="RCEntities">
+          <EntitySetMapping Name="gelen_kutusu">
+            <EntityTypeMapping TypeName="RCModel.gelen_kutusu">
+              <MappingFragment StoreEntitySet="gelen_kutusu">
+                <ScalarProperty Name="kullanici_adi" ColumnName="kullanici_adi" />
+                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanici_list">
+            <EntityTypeMapping TypeName="RCModel.kullanici_list">
+              <MappingFragment StoreEntitySet="kullanici_list">
+                <ScalarProperty Name="ID_kullanici" ColumnName="ID_kullanici" />
+                <ScalarProperty Name="kullanici_adi_u" ColumnName="kullanici_adi_u" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="ID_mesajlar" ColumnName="ID_mesajlar" />
+                <ScalarProperty Name="ID_unutulan_sifre" ColumnName="ID_unutulan_sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mesajlar">
+            <EntityTypeMapping TypeName="RCModel.mesajlar">
+              <MappingFragment StoreEntitySet="mesajlar">
+                <ScalarProperty Name="ID_g" ColumnName="ID_g" />
+                <ScalarProperty Name="kullanici_adi_g" ColumnName="kullanici_adi_g" />
+                <ScalarProperty Name="kullanici_adi_a" ColumnName="kullanici_adi_a" />
+                <ScalarProperty Name="ID_alici" ColumnName="ID_alici" />
+                <ScalarProperty Name="mesaj_no" ColumnName="mesaj_no" />
+                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+                <ScalarProperty Name="message_type" ColumnName="message_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RCModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="unutulan_sifre">
+            <EntityTypeMapping TypeName="RCModel.unutulan_sifre">
+              <MappingFragment StoreEntitySet="unutulan_sifre">
+                <ScalarProperty Name="user_sifre" ColumnName="user_sifre" />
+                <ScalarProperty Name="unutulan_sifre_a" ColumnName="unutulan_sifre_a" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yonetici_giris">
+            <EntityTypeMapping TypeName="RCModel.yonetici_giris">
+              <MappingFragment StoreEntitySet="yonetici_giris">
+                <ScalarProperty Name="ID_y_giris" ColumnName="ID_y_giris" />
+                <ScalarProperty Name="kullanici_adi_a" ColumnName="kullanici_adi_a" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="tur" ColumnName="tur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
