@@ -2,8 +2,7 @@
 
 RCAndroidWebApi
 
-tools
-
+# tools
 dotnet tool install -g dotnet-aspnet-codegenerator
 
 Install-Package Microsoft.EntityFrameworkCore
@@ -21,8 +20,9 @@ Server=localhost;Database=master;Trusted_Connection=True;
 
 
 # create asp.net core web app (model-view-controller)
-    and edit appsettings.json
+    
 
+# edit appsettings.json
 "AllowedHosts": "*",
   "ConnectionStrings": {
     "DefaultConnection": "SERVER=MONSTER_ABRA_A5;Database=RC;Trusted_Connection=True;"
