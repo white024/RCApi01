@@ -51,4 +51,4 @@ dotnet ef dbcontext scaffold "SERVER=MONSTER_ABRA_A5;Database=RC;Trusted_Connect
 dotnet aspnet-codegenerator controller -name kullanici -async -api -m KullaniciList -dc RCContext -outDir Controllers -f
 
 
-and optional IP configs etc.
+# and optional IP configs etc.
