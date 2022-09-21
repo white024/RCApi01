@@ -47,7 +47,7 @@ dotnet aspnet-codegenerator controller -name RCController -async -api -m RC -dc 
 dotnet ef dbcontext scaffold "SERVER=MONSTER_ABRA_A5;Database=RC;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
 
 
-#Updatecontrollers example
+# Updatecontrollers example
 dotnet aspnet-codegenerator controller -name kullanici -async -api -m KullaniciList -dc RCContext -outDir Controllers -f
 
 
