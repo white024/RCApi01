@@ -15,6 +15,8 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
+dotnet tool install --global dotnet-ef
+
 # conn string
 Server=localhost;Database=master;Trusted_Connection=True;
 
