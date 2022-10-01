@@ -17,7 +17,7 @@ Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 dotnet tool install --global dotnet-ef
 
-# tools for net core 6
+# tools for net core 3
 dotnet tool install -g dotnet-aspnet-codegenerator
 
 Install-Package Microsoft.EntityFrameworkCore -Version 3.1.0
