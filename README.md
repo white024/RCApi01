@@ -46,8 +46,10 @@ Server=localhost;Database=master;Trusted_Connection=True;
     "DefaultConnection": "SERVER=MONSTER_ABRA_A5;Database=RC;Trusted_Connection=True;"
   }
   
-# edit program.cs (startup.cs for netcore 5)
+# edit program.cs for Netcore 6
 builder.Services.AddDbContext<RCContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+# For Netcore old verions edit startup.cs
+Services.AddDbContext<RCContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 # create models example
