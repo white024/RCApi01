@@ -47,9 +47,9 @@ Server=localhost;Database=master;Trusted_Connection=True;
   }
   
 # edit program.cs for Netcore 6
-builder.Services.AddDbContext<RCContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-# For Netcore old verions edit startup.cs
-Services.AddDbContext<RCContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<yourcontext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+# For Netcore old verisions edit startup.cs
+Services.AddDbContext<yourcontext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 # create models example
