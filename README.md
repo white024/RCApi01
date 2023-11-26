@@ -4,19 +4,19 @@ RCAndroidWebApi
 
 # tools for net core 6
 
-dotnet tool install -g dotnet-aspnet-codegenerator --version 6.0.0
+dotnet tool install -g dotnet-aspnet-codegenerator --Version 6.0.10
 
-Install-Package Microsoft.EntityFrameworkCore -version 6.0.0
+Install-Package Microsoft.EntityFrameworkCore -Version 6.0.10
 
-Install-Package Microsoft.EntityFrameworkCore.Design -version 6.0.0
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 6.0.10
 
-Install-Package Microsoft.EntityFrameworkCore.Tools -version 6.0.0
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.10
 
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -version 6.0.0
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.10
 
-Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -version 6.0.0
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -Version 6.0.10
 
-dotnet tool install --global dotnet-ef --version 6.0.0
+dotnet tool install --global dotnet-ef --Version 6.0.10
 
 # tools for net core 3
 dotnet tool install -g dotnet-aspnet-codegenerator --version 3.1.0
